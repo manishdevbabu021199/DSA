@@ -1,0 +1,131 @@
+class node{
+    constructor(data){
+        this.data = data;
+        this.next = null
+    }
+}
+
+class linkedList {
+    constructor(head){
+        this.head = null;
+        this.size = 0
+    }
+    
+    insertAtFront(data){
+        const newNode = new node(data);
+        if(this.head == null){
+            this.head = newNode
+        }
+        else{
+            newNode.next = this.head
+            this.head = newNode
+        }
+    }
+    insertAtTheLast(data){
+        const newNode = new node(data);
+        if(this.head == null){
+            this.head = newNode
+        }
+        else{
+            let current = this.head
+            while(current.next){
+                current = current.next
+            }
+            console.log(current,newNode)
+            current.next = newNode
+        }
+    }
+    
+insertAtSpecificIndex(data, Index) {
+    const newNode = new node(data);
+
+    // Check if the index is valid
+    if (Index < 0) {
+        console.log("Index out of bounds");
+        return;
+    }
+
+    // If the index is 0, insert at the head
+    if (Index === 0) {
+        this.insertAtFront(data);
+        return;
+    }
+
+    let current = this.head;
+    let count = 0;
+    let previous = null;
+
+    // Iterate over the list to find the correct position
+    while (current) {
+        if (count === Index) {  // Nested if to check if we've reached the desired index
+            previous.next = newNode;  // Link the previous node to the new node
+            newNode.next = current;   // Link the new node to the current node
+            this.size++;  // Update size
+            return;
+        }
+
+        // Move forward in the list
+        previous = current;
+        current = current.next;
+        count++;
+    }
+
+    // If Index is equal to size, we're appending to the end of the list
+    if (count === Index) {
+        previous.next = newNode;
+        this.size++;
+    }
+}
+
+deleteAtSpecificIndex(Index) {
+    // Check if the index is valid
+    if (Index < 0) {
+        console.log("Index out of bounds");
+        return;
+    }
+
+    let current = this.head;
+    let count = 0;
+    let previous = null;
+
+    // Iterate over the list to find the correct position
+    while (current) {
+        if (count === Index) {  // Nested if to check if we've reached the desired index
+            previous.next = current.next;  // Link the previous node to the new node
+        }
+
+        // Move forward in the list
+        previous = current;
+        current = current.next;
+        count++;
+    }
+
+    // If Index is equal to size, we're appending to the end of the list
+    if (count === Index) {
+        previous.next = newNode;
+        this.size++;
+    }
+}
+
+    
+ display() {
+        let current = this.head;
+        let listValues = [];
+        while (current) {
+            listValues.push(current.data);
+            current = current.next;
+        }
+        console.log(listValues.join(' -> '));
+    }
+}
+
+let newLinkedList = new linkedList()
+newLinkedList.insertAtFront(4)
+newLinkedList.insertAtFront(10)
+newLinkedList.insertAtSpecificIndex(13,2)
+newLinkedList.insertAtFront(15)
+newLinkedList.insertAtTheLast(11)
+newLinkedList.insertAtTheLast(20)
+newLinkedList.deleteAtSpecificIndex(2)
+newLinkedList.display()
+
